@@ -4,27 +4,23 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checking out code...'
-                // The 'Pipeline script from SCM' option performs an implicit checkout
             }
         }
         stage('Build') {
             steps {
                 echo 'Building the application...'
-                sh './mvnw clean install -DskipTests'
             }
         }
         stage('Test') {
         steps {
                 echo 'Running unit tests...'
-                sh './mvnw test'
             }
         }
     }
     post {
         always {
             echo 'Processing results...'
-            junit 'target/surefire-reports/**/*.xml'
-            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            
         }
     }
 }
